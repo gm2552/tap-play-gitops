@@ -25,6 +25,8 @@ spec:
           appliveview-sample/app-live-view-appflavours-boot
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
+        kubectl.kubernetes.io/last-applied-configuration: |
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman","apps.tanzu.vmware.com/workload-type":"web"},"name":"hungryman-search","namespace":"workloads"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}}],"serviceClaims":[{"name":"db","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"mysql-hungryman"}},{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-search"}}}
         services.conventions.apps.tanzu.vmware.com/rabbitmq: amqp-client/5.13.1
       labels:
         app.kubernetes.io/component: run
