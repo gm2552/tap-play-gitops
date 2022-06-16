@@ -15,6 +15,7 @@ metadata:
   name: hungryman-search
   namespace: workloads
 spec:
+  serviceAccountName: default
   params:
   - name: gitops_ssh_secret
     value: tap-play-gitops-secret
