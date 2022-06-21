@@ -5,7 +5,6 @@ metadata:
   labels:
     app.kubernetes.io/part-of: hungryman
     apps.tanzu.vmware.com/workload-type: web
-    networking.knative.dev/visibility: cluster-local
     app.kubernetes.io/component: run
     carto.run/workload-name: hungryman-notify
 spec:
@@ -20,23 +19,17 @@ spec:
           spring-boot-convention/spring-boot-web
           spring-boot-convention/spring-boot-actuator
           spring-boot-convention/spring-boot-actuator-probes
-          spring-boot-convention/service-intent-rabbitmq
           appliveview-sample/app-live-view-appflavour-check
           appliveview-sample/app-live-view-connector-boot
           appliveview-sample/app-live-view-appflavours-boot
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
-        kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman","apps.tanzu.vmware.com/workload-type":"web","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-notify","namespace":"workloads"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}}],"serviceClaims":[{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-notify"}}}
-        services.conventions.apps.tanzu.vmware.com/rabbitmq: amqp-client/5.14.2
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: hungryman
         apps.tanzu.vmware.com/workload-type: web
         carto.run/workload-name: hungryman-notify
         conventions.apps.tanzu.vmware.com/framework: spring-boot
-        networking.knative.dev/visibility: cluster-local
-        services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.port: "8081"
         tanzu.app.live.view.application.flavours: spring-boot
@@ -46,7 +39,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-notify-workloads@sha256:e5d8af8aba60ea917b3eb4a52fa1ba6e745b49f57bcc87f8b23be35f430bb7e5
+        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-notify-workloads@sha256:95a965b558dbc41b1ec623b11809a0adc67067f3a1d69cca0607f0fa416948a9
         livenessProbe:
           httpGet:
             path: /livez
