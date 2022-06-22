@@ -32,7 +32,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dserver.port="8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-search-proc-workloads@sha256:754a4f94bde41d79a3ca514e17a02d59333d2a093655a4b6b3e007a0d411c12c
+        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-search-proc-workloads@sha256:c2cab5e8504201751e87b4f8c75269d0f0b5ba441bb7f607ba489824bf83ca0b
         name: workload
         ports:
         - containerPort: 8080
