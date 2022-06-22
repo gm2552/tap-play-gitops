@@ -13,25 +13,30 @@ spec:
       annotations:
         autoscaling.knative.dev/minScale: "1"
         boot.spring.io/actuator: http://:8081/actuator
-        boot.spring.io/version: 2.6.8
+        boot.spring.io/version: 2.7.0
         conventions.apps.tanzu.vmware.com/applied-conventions: |-
           spring-boot-convention/spring-boot
           spring-boot-convention/spring-boot-web
           spring-boot-convention/spring-boot-actuator
           spring-boot-convention/spring-boot-actuator-probes
+          spring-boot-convention/service-intent-mysql
           spring-boot-convention/service-intent-rabbitmq
           appliveview-sample/app-live-view-appflavour-check
           appliveview-sample/app-live-view-connector-boot
           appliveview-sample/app-live-view-appflavours-boot
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
-        services.conventions.apps.tanzu.vmware.com/rabbitmq: amqp-client/5.13.1
+        kubectl.kubernetes.io/last-applied-configuration: |
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman","apps.tanzu.vmware.com/workload-type":"web"},"name":"hungryman-search","namespace":"workloads"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}}],"serviceClaims":[{"name":"db","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"mysql-hungryman"}},{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-search"}}}
+        services.conventions.apps.tanzu.vmware.com/mysql: mysql-connector-java/8.0.29
+        services.conventions.apps.tanzu.vmware.com/rabbitmq: amqp-client/5.14.2
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: hungryman
         apps.tanzu.vmware.com/workload-type: web
         carto.run/workload-name: hungryman-search
         conventions.apps.tanzu.vmware.com/framework: spring-boot
+        services.conventions.apps.tanzu.vmware.com/mysql: workload
         services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.port: "8081"
@@ -42,7 +47,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-search-workloads@sha256:7c87151718d6a5696840533be1619c06c62df86fc68218578953902b89412c7e
+        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-search-workloads@sha256:f5d7b95dd1fc2bfb89ef6e4b120eefdbf9b260e3c99076df2180bd85ed790761
         livenessProbe:
           httpGet:
             path: /livez
