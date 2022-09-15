@@ -13,9 +13,9 @@ metadata:
     carto.run/supply-chain-name: source-to-url
     carto.run/template-kind: ClusterTemplate
     carto.run/workload-name: hungryman-availability
-    carto.run/workload-namespace: workloads
+    carto.run/workload-namespace: my-apps
   name: hungryman-availability
-  namespace: workloads
+  namespace: my-apps
 spec:
   params:
   - name: gitops_ssh_secret
