@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hungryman-crawler
+  annotations:
+    kapp.k14s.io/update-strategy: fallback-on-replace
+    ootb.apps.tanzu.vmware.com/servicebinding-workload: "true"
+  labels:
+    app.kubernetes.io/part-of: hungryman-crawler
+    apps.tanzu.vmware.com/workload-type: server
+    networking.knative.dev/visibility: cluster-local
+    app.kubernetes.io/component: run
+    carto.run/workload-name: hungryman-crawler
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: run
+      app.kubernetes.io/part-of: hungryman-crawler
+      apps.tanzu.vmware.com/workload-type: server
+      carto.run/workload-name: hungryman-crawler
+      conventions.apps.tanzu.vmware.com/framework: spring-boot
+      networking.knative.dev/visibility: cluster-local
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: "4"
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/target: "200"
+        boot.spring.io/version: 2.7.3
+        conventions.carto.run/applied-conventions: |-
+          spring-boot-convention/spring-boot
+          spring-boot-convention/spring-boot-web
+          appliveview-sample/app-live-view-appflavour-check
+        developer.conventions/target-containers: workload
+        kubectl.kubernetes.io/last-applied-configuration: |
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman-crawler","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-crawler","namespace":"workloads"},"spec":{"env":null,"params":[{"name":"annotations","value":{"autoscaling.knative.dev/maxScale":"4","autoscaling.knative.dev/minScale":"1","autoscaling.knative.dev/target":"200"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-crawler"}}}
+      labels:
+        app.kubernetes.io/component: run
+        app.kubernetes.io/part-of: hungryman-crawler
+        apps.tanzu.vmware.com/workload-type: server
+        carto.run/workload-name: hungryman-crawler
+        conventions.apps.tanzu.vmware.com/framework: spring-boot
+        networking.knative.dev/visibility: cluster-local
+    spec:
+      containers:
+      - env:
+        - name: JAVA_TOOL_OPTIONS
+          value: -Dserver.port="8080"
+        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-crawler-workloads@sha256:071f04726fd62f919ac1c75eed0737e02e13120f34832178593ecfb479241218
+        name: workload
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        securityContext:
+          runAsUser: 1000
+      serviceAccountName: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hungryman-crawler
+  labels:
+    app.kubernetes.io/part-of: hungryman-crawler
+    apps.tanzu.vmware.com/workload-type: server
+    networking.knative.dev/visibility: cluster-local
+    app.kubernetes.io/component: run
+    carto.run/workload-name: hungryman-crawler
+spec:
+  selector:
+    app.kubernetes.io/component: run
+    app.kubernetes.io/part-of: hungryman-crawler
+    apps.tanzu.vmware.com/workload-type: server
+    carto.run/workload-name: hungryman-crawler
+    conventions.apps.tanzu.vmware.com/framework: spring-boot
+    networking.knative.dev/visibility: cluster-local
+  ports:
+  - targetPort: 8080
+    port: 8080
+    name: "8080"
+  - targetPort: 8080
+    port: 80
+    name: http
+
