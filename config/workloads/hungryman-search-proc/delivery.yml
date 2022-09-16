@@ -20,6 +20,7 @@ spec:
       carto.run/workload-name: hungryman-search-proc
       conventions.apps.tanzu.vmware.com/framework: spring-boot
       networking.knative.dev/visibility: cluster-local
+      services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
       tanzu.app.live.view: "true"
       tanzu.app.live.view.application.actuator.port: "8081"
       tanzu.app.live.view.application.flavours: spring-boot
@@ -36,13 +37,15 @@ spec:
           spring-boot-convention/spring-boot-web
           spring-boot-convention/spring-boot-actuator
           spring-boot-convention/spring-boot-actuator-probes
+          spring-boot-convention/service-intent-rabbitmq
           appliveview-sample/app-live-view-appflavour-check
           appliveview-sample/app-live-view-connector-boot
           appliveview-sample/app-live-view-appflavours-boot
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman-search-proc","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-search-proc","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_MAVEN_BUILD_ARGUMENTS","value":"-P native -Dmaven.test.skip=true --no-transfer-progress package"}]},"params":[{"name":"annotations","value":{"autoscaling.knative.dev/maxScale":"4","autoscaling.knative.dev/target":"200"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"serviceClaims":[{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-search-proc"}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman-search-proc","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-search-proc","namespace":"workloads"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/maxScale":"4","autoscaling.knative.dev/target":"200"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"serviceClaims":[{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-search-proc"}}}
+        services.conventions.apps.tanzu.vmware.com/rabbitmq: amqp-client/5.14.2
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: hungryman-search-proc
@@ -50,6 +53,7 @@ spec:
         carto.run/workload-name: hungryman-search-proc
         conventions.apps.tanzu.vmware.com/framework: spring-boot
         networking.knative.dev/visibility: cluster-local
+        services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.port: "8081"
         tanzu.app.live.view.application.flavours: spring-boot
@@ -59,7 +63,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-search-proc-workloads@sha256:30966cc1813ea072360cd38f4db8575c9745c5edb2ca3ecfe84ea9eebd3781b0
+        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-search-proc-workloads@sha256:a22146794ac1481e47fe982f123ae514c71aa819fb0339e613911255f597bf3c
         livenessProbe:
           httpGet:
             path: /livez
@@ -97,6 +101,7 @@ spec:
     carto.run/workload-name: hungryman-search-proc
     conventions.apps.tanzu.vmware.com/framework: spring-boot
     networking.knative.dev/visibility: cluster-local
+    services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
     tanzu.app.live.view: "true"
     tanzu.app.live.view.application.actuator.port: "8081"
     tanzu.app.live.view.application.flavours: spring-boot
