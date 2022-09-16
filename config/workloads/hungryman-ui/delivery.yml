@@ -35,7 +35,7 @@ spec:
         networking.knative.dev/visibility: cluster-local
     spec:
       containers:
-      - image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-ui-workloads@sha256:489790b0e23160caa7f0d1c1c20faa47868ef5a505bc054aa85998d0c235c538
+      - image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-ui-workloads@sha256:2f35cd200b8de14140461cd18dbdfef5e57b857858c79acd4afac03b14b94f96
         name: workload
         resources: {}
         securityContext:
