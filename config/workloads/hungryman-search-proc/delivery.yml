@@ -28,8 +28,6 @@ spec:
   template:
     metadata:
       annotations:
-        autoscaling.knative.dev/maxScale: "4"
-        autoscaling.knative.dev/target: "200"
         boot.spring.io/actuator: http://:8081/actuator
         boot.spring.io/version: 2.7.3
         conventions.carto.run/applied-conventions: |-
@@ -44,7 +42,7 @@ spec:
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman-search-proc","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-search-proc","namespace":"workloads"},"spec":{"env":[{"name":"spring_profiles_active","value":"crawler"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/maxScale":"4","autoscaling.knative.dev/target":"200"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"serviceClaims":[{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-search-proc"}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman-search-proc","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-search-proc","namespace":"workloads"},"spec":{"env":[{"name":"spring_profiles_active","value":"crawler"}],"params":[{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"serviceClaims":[{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-search-proc"}}}
         services.conventions.apps.tanzu.vmware.com/rabbitmq: amqp-client/5.14.2
       labels:
         app.kubernetes.io/component: run
