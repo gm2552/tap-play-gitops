@@ -4,7 +4,7 @@ metadata:
   name: hungryman-search-rmq
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman-search","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-search","namespace":"workloads"},"spec":{"env":null,"params":[{"name":"annotations","value":{"autoscaling.knative.dev/maxScale":"4","autoscaling.knative.dev/minScale":"1","autoscaling.knative.dev/target":"200"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"serviceClaims":[{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-search"}}}
+      {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman-search","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-search","namespace":"workloads"},"spec":{"env":null,"params":[{"name":"annotations","value":{"autoscaling.knative.dev/maxScale":"4","autoscaling.knative.dev/minScale":"1","autoscaling.knative.dev/target":"200"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"serviceClaims":[{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}},{"name":"db","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"db-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-search"}}}
     autoscaling.knative.dev/maxScale: "4"
     autoscaling.knative.dev/minScale: "1"
     autoscaling.knative.dev/target: "200"
@@ -20,6 +20,33 @@ spec:
     apiVersion: services.apps.tanzu.vmware.com/v1alpha1
     kind: ResourceClaim
     name: rmq-hungryman
+  workload:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hungryman-search
+---
+apiVersion: servicebinding.io/v1alpha3
+kind: ServiceBinding
+metadata:
+  name: hungryman-search-db
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman-search","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-search","namespace":"workloads"},"spec":{"env":null,"params":[{"name":"annotations","value":{"autoscaling.knative.dev/maxScale":"4","autoscaling.knative.dev/minScale":"1","autoscaling.knative.dev/target":"200"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"serviceClaims":[{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}},{"name":"db","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"db-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-search"}}}
+    autoscaling.knative.dev/maxScale: "4"
+    autoscaling.knative.dev/minScale: "1"
+    autoscaling.knative.dev/target: "200"
+  labels:
+    app.kubernetes.io/part-of: hungryman-search
+    apps.tanzu.vmware.com/workload-type: server
+    networking.knative.dev/visibility: cluster-local
+    app.kubernetes.io/component: run
+    carto.run/workload-name: hungryman-search
+spec:
+  name: db
+  service:
+    apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+    kind: ResourceClaim
+    name: db-hungryman
   workload:
     apiVersion: apps/v1
     kind: Deployment
