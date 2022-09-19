@@ -20,7 +20,6 @@ spec:
       carto.run/workload-name: hungryman-availability
       conventions.apps.tanzu.vmware.com/framework: spring-boot
       networking.knative.dev/visibility: cluster-local
-      services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
       tanzu.app.live.view: "true"
       tanzu.app.live.view.application.actuator.port: "8081"
       tanzu.app.live.view.application.flavours: spring-boot
@@ -38,7 +37,6 @@ spec:
           spring-boot-convention/spring-boot-web
           spring-boot-convention/spring-boot-actuator
           spring-boot-convention/spring-boot-actuator-probes
-          spring-boot-convention/service-intent-rabbitmq
           appliveview-sample/app-live-view-appflavour-check
           appliveview-sample/app-live-view-connector-boot
           appliveview-sample/app-live-view-appflavours-boot
@@ -46,7 +44,6 @@ spec:
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
           {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman-availability","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-availability","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_MAVEN_BUILD_ARGUMENTS","value":"-P native -Dmaven.test.skip=true --no-transfer-progress package"}]},"env":null,"params":[{"name":"annotations","value":{"autoscaling.knative.dev/maxScale":"4","autoscaling.knative.dev/minScale":"1","autoscaling.knative.dev/target":"200"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"serviceClaims":[{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-availability"}}}
-        services.conventions.apps.tanzu.vmware.com/rabbitmq: amqp-client/5.14.2
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: hungryman-availability
@@ -54,7 +51,6 @@ spec:
         carto.run/workload-name: hungryman-availability
         conventions.apps.tanzu.vmware.com/framework: spring-boot
         networking.knative.dev/visibility: cluster-local
-        services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.port: "8081"
         tanzu.app.live.view.application.flavours: spring-boot
@@ -64,7 +60,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-availability-workloads@sha256:1f68b8ad3ea21abc42a5d71227a41a9326635c63ad7b3380e2f45a850d93d15f
+        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-availability-workloads@sha256:5ae9de1e663faf0d03ce6d5d219bacb56805b03b0d84f583cab40f478eef950f
         livenessProbe:
           httpGet:
             path: /livez
@@ -102,7 +98,6 @@ spec:
     carto.run/workload-name: hungryman-availability
     conventions.apps.tanzu.vmware.com/framework: spring-boot
     networking.knative.dev/visibility: cluster-local
-    services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
     tanzu.app.live.view: "true"
     tanzu.app.live.view.application.actuator.port: "8081"
     tanzu.app.live.view.application.flavours: spring-boot
