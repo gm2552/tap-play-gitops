@@ -20,7 +20,6 @@ spec:
       carto.run/workload-name: hungryman-notify
       conventions.apps.tanzu.vmware.com/framework: spring-boot
       networking.knative.dev/visibility: cluster-local
-      services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
       tanzu.app.live.view: "true"
       tanzu.app.live.view.application.actuator.port: "8081"
       tanzu.app.live.view.application.flavours: spring-boot
@@ -37,7 +36,6 @@ spec:
           spring-boot-convention/spring-boot-web
           spring-boot-convention/spring-boot-actuator
           spring-boot-convention/spring-boot-actuator-probes
-          spring-boot-convention/service-intent-rabbitmq
           appliveview-sample/app-live-view-appflavour-check
           appliveview-sample/app-live-view-connector-boot
           appliveview-sample/app-live-view-appflavours-boot
@@ -45,7 +43,6 @@ spec:
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
           {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman-notify","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"hungryman-notify","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_MAVEN_BUILD_ARGUMENTS","value":"-P native -Dmaven.test.skip=true --no-transfer-progress package"}]},"params":[{"name":"annotations","value":{"autoscaling.knative.dev/maxScale":"4","autoscaling.knative.dev/target":"200"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"serviceClaims":[{"name":"rmq","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"rmq-hungryman"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/hungryman.git"},"subPath":"hungryman-notify"}}}
-        services.conventions.apps.tanzu.vmware.com/rabbitmq: amqp-client/5.14.2
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: hungryman-notify
@@ -53,7 +50,6 @@ spec:
         carto.run/workload-name: hungryman-notify
         conventions.apps.tanzu.vmware.com/framework: spring-boot
         networking.knative.dev/visibility: cluster-local
-        services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.port: "8081"
         tanzu.app.live.view.application.flavours: spring-boot
@@ -63,7 +59,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-notify-workloads@sha256:9a87aa7e935213eb885af698f134d91003a3a8127c9c0fdd6493c2be3eac009c
+        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-notify-workloads@sha256:380d061a6bb9cbc1200feaff7131768dcdbecca01ed2a678dff96a83fb6830df
         livenessProbe:
           httpGet:
             path: /livez
@@ -101,7 +97,6 @@ spec:
     carto.run/workload-name: hungryman-notify
     conventions.apps.tanzu.vmware.com/framework: spring-boot
     networking.knative.dev/visibility: cluster-local
-    services.conventions.apps.tanzu.vmware.com/rabbitmq: workload
     tanzu.app.live.view: "true"
     tanzu.app.live.view.application.actuator.port: "8081"
     tanzu.app.live.view.application.flavours: spring-boot
