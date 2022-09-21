@@ -13,7 +13,7 @@ metadata:
     carto.run/supply-chain-name: source-to-url
     carto.run/template-kind: ClusterTemplate
     carto.run/workload-name: acme-shopping
-    carto.run/workload-namespace: y-apps
+    carto.run/workload-namespace: my-apps
     networking.knative.dev/visibility: cluster-local
   name: acme-shopping
   namespace: my-apps
