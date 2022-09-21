@@ -40,6 +40,9 @@ spec:
           value: "8080"
         image: reg.perfect300rock.com/tapdev/supply-chain/acme-shopping-workloads@sha256:f325dd35580e41d60b6a4242b15fb80d7ee24927fad7a89655911770439e09ab
         name: workload
+        ports:
+        - containerPort: 80
+          protocol: TCP
         resources: {}
         securityContext:
           runAsUser: 1000
