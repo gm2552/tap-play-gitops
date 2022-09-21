@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acme-payment
+  annotations:
+    kapp.k14s.io/update-strategy: fallback-on-replace
+    ootb.apps.tanzu.vmware.com/servicebinding-workload: "true"
+  labels:
+    app.kubernetes.io/part-of: acme-fitness-store
+    apps.tanzu.vmware.com/workload-type: server
+    networking.knative.dev/visibility: cluster-local
+    app.kubernetes.io/component: run
+    carto.run/workload-name: acme-payment
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: run
+      app.kubernetes.io/part-of: acme-fitness-store
+      apps.tanzu.vmware.com/workload-type: server
+      carto.run/workload-name: acme-payment
+      conventions.apps.tanzu.vmware.com/framework: spring-boot
+      networking.knative.dev/visibility: cluster-local
+      services.conventions.apps.tanzu.vmware.com/postgres: workload
+      tanzu.app.live.view: "true"
+      tanzu.app.live.view.application.actuator.port: "8081"
+      tanzu.app.live.view.application.flavours: spring-boot
+      tanzu.app.live.view.application.name: acme-payment
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        boot.spring.io/actuator: http://:8081/actuator
+        boot.spring.io/version: 2.6.6
+        conventions.carto.run/applied-conventions: |-
+          spring-boot-convention/spring-boot
+          spring-boot-convention/spring-boot-graceful-shutdown
+          spring-boot-convention/spring-boot-web
+          spring-boot-convention/spring-boot-actuator
+          spring-boot-convention/spring-boot-actuator-probes
+          spring-boot-convention/service-intent-postgres
+          appliveview-sample/app-live-view-appflavour-check
+          appliveview-sample/app-live-view-connector-boot
+          appliveview-sample/app-live-view-appflavours-boot
+          appliveview-sample/app-live-view-systemproperties
+        developer.conventions/target-containers: workload
+        kubectl.kubernetes.io/last-applied-configuration: |
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-payment","namespace":"workloads"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/odedia/acme-fitness-store"},"subPath":"apps/acme-catalog"}}}
+        services.conventions.apps.tanzu.vmware.com/postgres: postgresql/42.3.3
+      labels:
+        app.kubernetes.io/component: run
+        app.kubernetes.io/part-of: acme-fitness-store
+        apps.tanzu.vmware.com/workload-type: server
+        carto.run/workload-name: acme-payment
+        conventions.apps.tanzu.vmware.com/framework: spring-boot
+        networking.knative.dev/visibility: cluster-local
+        services.conventions.apps.tanzu.vmware.com/postgres: workload
+        tanzu.app.live.view: "true"
+        tanzu.app.live.view.application.actuator.port: "8081"
+        tanzu.app.live.view.application.flavours: spring-boot
+        tanzu.app.live.view.application.name: acme-payment
+    spec:
+      containers:
+      - env:
+        - name: JAVA_TOOL_OPTIONS
+          value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-payment-workloads@sha256:89c212b1f5a70c3ce47893be2d638155fce6e0961c9593f30bbeeadde57b01f3
+        livenessProbe:
+          httpGet:
+            path: /livez
+            port: 8080
+            scheme: HTTP
+        name: workload
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8080
+            scheme: HTTP
+        resources: {}
+        securityContext:
+          runAsUser: 1000
+      serviceAccountName: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: acme-payment
+  labels:
+    app.kubernetes.io/part-of: acme-fitness-store
+    apps.tanzu.vmware.com/workload-type: server
+    networking.knative.dev/visibility: cluster-local
+    app.kubernetes.io/component: run
+    carto.run/workload-name: acme-payment
+spec:
+  selector:
+    app.kubernetes.io/component: run
+    app.kubernetes.io/part-of: acme-fitness-store
+    apps.tanzu.vmware.com/workload-type: server
+    carto.run/workload-name: acme-payment
+    conventions.apps.tanzu.vmware.com/framework: spring-boot
+    networking.knative.dev/visibility: cluster-local
+    services.conventions.apps.tanzu.vmware.com/postgres: workload
+    tanzu.app.live.view: "true"
+    tanzu.app.live.view.application.actuator.port: "8081"
+    tanzu.app.live.view.application.flavours: spring-boot
+    tanzu.app.live.view.application.name: acme-payment
+  ports:
+  - targetPort: 8080
+    port: 8080
+    name: "8080"
+  - targetPort: 8080
+    port: 80
+    name: http
+
