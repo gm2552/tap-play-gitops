@@ -26,7 +26,7 @@ spec:
         conventions.carto.run/applied-conventions: appliveview-sample/app-live-view-appflavour-check
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-shopping","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_NODE_RUN_SCRIPTS","value":"build"},{"name":"BP_WEB_SERVER","value":"httpd"},{"name":"BP_WEB_SERVER_ROOT","value":"public"},{"name":"BP_WEB_SERVER_ENABLE_PUSH_STATE","value":"true"}]},"env":[{"name":"port","value":"8080"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/odedia/acme-fitness-store"},"subPath":"apps/acme-shopping"}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-shopping","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_NODE_RUN_SCRIPTS","value":"build"},{"name":"BP_WEB_SERVER","value":"httpd"},{"name":"BP_WEB_SERVER_ROOT","value":"public"},{"name":"BP_WEB_SERVER_ENABLE_PUSH_STATE","value":"true"}]},"env":[{"name":"PORT","value":"8080"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/odedia/acme-fitness-store"},"subPath":"apps/acme-shopping"}}}
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: acme-fitness-store
@@ -36,13 +36,10 @@ spec:
     spec:
       containers:
       - env:
-        - name: port
+        - name: PORT
           value: "8080"
         image: reg.perfect300rock.com/tapdev/supply-chain/acme-shopping-workloads@sha256:f325dd35580e41d60b6a4242b15fb80d7ee24927fad7a89655911770439e09ab
         name: workload
-        ports:
-        - containerPort: 80
-          protocol: TCP
         resources: {}
         securityContext:
           runAsUser: 1000
