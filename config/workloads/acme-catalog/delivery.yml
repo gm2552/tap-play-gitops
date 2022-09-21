@@ -6,7 +6,7 @@ metadata:
     kapp.k14s.io/update-strategy: fallback-on-replace
     ootb.apps.tanzu.vmware.com/servicebinding-workload: "true"
   labels:
-    app.kubernetes.io/part-of: hungryman
+    app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/has-tests: "false"
     apps.tanzu.vmware.com/workload-type: server
     networking.knative.dev/visibility: cluster-local
@@ -97,7 +97,7 @@ kind: Service
 metadata:
   name: acme-catalog
   labels:
-    app.kubernetes.io/part-of: hungryman
+    app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/has-tests: "false"
     apps.tanzu.vmware.com/workload-type: server
     networking.knative.dev/visibility: cluster-local
