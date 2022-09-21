@@ -16,7 +16,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/component: run
-      app.kubernetes.io/part-of: acme-fitness-store
+      app.kubernetes.io/part-of: hungryman
       apps.tanzu.vmware.com/has-tests: "false"
       apps.tanzu.vmware.com/workload-type: server
       carto.run/workload-name: acme-catalog
@@ -46,11 +46,11 @@ spec:
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/has-tests":"false","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-catalog","namespace":"workloads"},"spec":{"env":[{"name":"spring.mvc.static-path-pattern","value":"/static/images/**"},{"name":"spring.web.resources.cache.cachecontrol.max-age","value":"3600"},{"name":"spring.web.resources.cache.cachecontrol.cache-public","value":"true"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/odedia/acme-fitness-store"},"subPath":"apps/acme-catalog"}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"hungryman","apps.tanzu.vmware.com/has-tests":"false","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-catalog","namespace":"workloads"},"spec":{"env":[{"name":"spring.mvc.static-path-pattern","value":"/static/images/**"},{"name":"spring.web.resources.cache.cachecontrol.max-age","value":"3600"},{"name":"spring.web.resources.cache.cachecontrol.cache-public","value":"true"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/odedia/acme-fitness-store"},"subPath":"apps/acme-catalog"}}}
         services.conventions.apps.tanzu.vmware.com/postgres: postgresql/42.3.3
       labels:
         app.kubernetes.io/component: run
-        app.kubernetes.io/part-of: acme-fitness-store
+        app.kubernetes.io/part-of: hungryman
         apps.tanzu.vmware.com/has-tests: "false"
         apps.tanzu.vmware.com/workload-type: server
         carto.run/workload-name: acme-catalog
@@ -106,7 +106,7 @@ metadata:
 spec:
   selector:
     app.kubernetes.io/component: run
-    app.kubernetes.io/part-of: acme-fitness-store
+    app.kubernetes.io/part-of: hungryman
     apps.tanzu.vmware.com/has-tests: "false"
     apps.tanzu.vmware.com/workload-type: server
     carto.run/workload-name: acme-catalog
