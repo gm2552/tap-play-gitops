@@ -1,22 +1,22 @@
 apiVersion: carto.run/v1alpha1
 kind: Deliverable
 metadata:
-  creationTimestamp: "2022-09-21T17:15:57Z"
+  creationTimestamp: "2022-09-21T18:28:41Z"
   generation: 1
   labels:
     app.kubernetes.io/component: deliverable
     app.kubernetes.io/part-of: hungryman
     app.tanzu.vmware.com/deliverable-type: web
-    apps.tanzu.vmware.com/workload-type: web
+    apps.tanzu.vmware.com/workload-type: server
     carto.run/cluster-template-name: deliverable-template
     carto.run/resource-name: deliverable
     carto.run/supply-chain-name: source-to-url
     carto.run/template-kind: ClusterTemplate
     carto.run/workload-name: acme-shopping
-    carto.run/workload-namespace: my-apps
+    carto.run/workload-namespace: workloads
     networking.knative.dev/visibility: cluster-local
   name: acme-shopping
-  namespace: my-apps
+  namespace: workloads
 spec:
   params:
   - name: gitops_ssh_secret
