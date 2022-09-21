@@ -6,7 +6,7 @@ metadata:
     kapp.k14s.io/update-strategy: fallback-on-replace
     ootb.apps.tanzu.vmware.com/servicebinding-workload: "true"
   labels:
-    app.kubernetes.io/part-of: hungryman
+    app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/workload-type: server
     networking.knative.dev/visibility: cluster-local
     app.kubernetes.io/component: run
@@ -85,7 +85,7 @@ kind: Service
 metadata:
   name: acme-identity
   labels:
-    app.kubernetes.io/part-of: hungryman
+    app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/workload-type: server
     networking.knative.dev/visibility: cluster-local
     app.kubernetes.io/component: run
