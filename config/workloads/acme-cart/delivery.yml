@@ -51,7 +51,7 @@ spec:
             secretKeyRef:
               key: password
               name: cart-redis-pass
-        image: reg.perfect300rock.com/tapdev/supply-chain/acme-cart-workloads@sha256:f0880e41e7112a8725e37dda682471e9ea418f47ff45f28bc9e80cedd17ed7d3
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-cart-workloads@sha256:1e0a3019afca025847b6f5e3ac2ea17b0d1d2848db7e94a8f314f3ff4922b5dd
         name: workload
         resources: {}
         securityContext:
