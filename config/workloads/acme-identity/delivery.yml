@@ -41,7 +41,7 @@ spec:
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-identity","namespace":"workloads"},"spec":{"env":[{"name":"JWK_URI","value":"http://authserver.tsmdemo.perfect300rock.com/oauth2/jwks"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/odedia/acme-fitness-store"},"subPath":"apps/acme-identity"}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-identity","namespace":"workloads"},"spec":{"env":[{"name":"JWK_URI","value":"http://authserver.tsmdemo.perfect300rock.com/oauth2/jwks"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/acme-fitness-store"},"subPath":"apps/acme-identity"}}}
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: acme-fitness-store
