@@ -32,7 +32,7 @@ spec:
           appliveview-sample/app-live-view-appflavours-steeltoe
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-order","namespace":"workloads"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/odedia/acme-fitness-store"},"subPath":"apps/acme-order"}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-order","namespace":"workloads"},"spec":{"env":[{"name":"AcmeServiceSettings__AuthUrl","value":"http://authserver.tsmdemo.perfect300rock.com"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/odedia/acme-fitness-store"},"subPath":"apps/acme-order"}}}
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: acme-fitness-store
@@ -44,7 +44,10 @@ spec:
         tanzu.app.live.view.application.name: acme-order
     spec:
       containers:
-      - image: reg.perfect300rock.com/tapdev/supply-chain/acme-order-workloads@sha256:8b421c46760e61731ed91eaf3d7ae11a978ecd5485ab185662683376fbbe5824
+      - env:
+        - name: AcmeServiceSettings__AuthUrl
+          value: http://authserver.tsmdemo.perfect300rock.com
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-order-workloads@sha256:d1cbe314dcd764b8aad9f9088b5c5296ccd7cc8e35be6d508532aedb6ce25634
         name: workload
         resources: {}
         securityContext:
