@@ -38,7 +38,7 @@ spec:
       - env:
         - name: PORT
           value: "8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/acme-shopping-workloads@sha256:970115a579df2e4b04519b545e1d8243325bfa11eb2df8b95844d8f3a05a0b20
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-shopping-workloads@sha256:b67e805ad308203f4e3b00ef40ae55998707b62c8b34c12b9db2d0dea7f56603
         name: workload
         resources: {}
         securityContext:
