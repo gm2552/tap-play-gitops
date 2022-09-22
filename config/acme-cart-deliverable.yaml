@@ -13,10 +13,10 @@ metadata:
     carto.run/supply-chain-name: source-to-url
     carto.run/template-kind: ClusterTemplate
     carto.run/workload-name: acme-cart
-    carto.run/workload-namespace: my-apps
+    carto.run/workload-namespace: acme
     networking.knative.dev/visibility: cluster-local
   name: acme-cart
-  namespace: my-apps
+  namespace: acme
 spec:
   params:
   - name: gitops_ssh_secret
