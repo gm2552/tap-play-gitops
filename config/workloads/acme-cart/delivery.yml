@@ -26,7 +26,7 @@ spec:
         conventions.carto.run/applied-conventions: appliveview-sample/app-live-view-appflavour-check
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-cart","namespace":"workloads"},"spec":{"env":[{"name":"CART_PORT","value":"8080"},{"name":"AUTH_URL","value":"http://authserver.tsmdemo.perfect300rock.com"},{"name":"AUTH_MODE","value":"1"},{"name":"REDIS_HOST","value":"redis-test-db.service-instances"},{"name":"REDIS_PORT","value":"12343"},{"name":"REDIS_PASSWORD","value":"zxnpBbAj"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/odedia/acme-fitness-store"},"subPath":"apps/acme-cart"}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-cart","namespace":"workloads"},"spec":{"env":[{"name":"CART_PORT","value":"8080"},{"name":"AUTH_URL","value":"http://authserver.tsmdemo.perfect300rock.com"},{"name":"AUTH_MODE","value":"1"},{"name":"REDIS_HOST","value":"redis-test-db.service-instances"},{"name":"REDIS_PORT","value":"12343"},{"name":"REDIS_PASSWORD","valueFrom":{"secretKeyRef":{"key":"password","name":"cart-redis-pass"}}}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/odedia/acme-fitness-store"},"subPath":"apps/acme-cart"}}}
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: acme-fitness-store
@@ -47,8 +47,11 @@ spec:
         - name: REDIS_PORT
           value: "12343"
         - name: REDIS_PASSWORD
-          value: zxnpBbAj
-        image: reg.perfect300rock.com/tapdev/supply-chain/acme-cart-workloads@sha256:c5db185bf4f238c7ae66c75a8e00b05e949cf1d782b547f05b263f02333d41d1
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: cart-redis-pass
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-cart-workloads@sha256:42d0e89480b0366f8fedf4498bc00f3cfc3f2d387704a7434c06941989483a73
         name: workload
         resources: {}
         securityContext:
