@@ -72,7 +72,7 @@ spec:
           value: "true"
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: reg.perfect300rock.com/tapdev/supply-chain/acme-catalog-workloads@sha256:8bc1a3d4215116c76da46d3232e6596a2cce306fce2318773d0f38a54950c728
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-catalog-workloads@sha256:b3243e8d5378a93b2365cb2215f9927606cf993fb55e283a4204271a6a46f07d
         livenessProbe:
           httpGet:
             path: /livez
