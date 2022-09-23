@@ -11,9 +11,9 @@ metadata:
     carto.run/supply-chain-name: source-to-url
     carto.run/template-kind: ClusterTemplate
     carto.run/workload-name: hungryman-search
-    carto.run/workload-namespace: my-apps
+    carto.run/workload-namespace: hungryman
   name: hungryman-search
-  namespace: my-apps
+  namespace: hungryman
 spec:
   serviceAccountName: default
   params:
