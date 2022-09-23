@@ -13,7 +13,7 @@ metadata:
     carto.run/supply-chain-name: source-to-url
     carto.run/template-kind: ClusterTemplate
     carto.run/workload-name: hungryman
-    carto.run/workload-namespace: my-apps
+    carto.run/workload-namespace: hungryman
   name: hungryman
   namespace: hungryman
 spec:
