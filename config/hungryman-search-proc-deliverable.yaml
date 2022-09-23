@@ -13,10 +13,10 @@ metadata:
     carto.run/supply-chain-name: source-to-url
     carto.run/template-kind: ClusterTemplate
     carto.run/workload-name: hungryman-search-proc
-    carto.run/workload-namespace: my-apps
+    carto.run/workload-namespace: hungryman
     networking.knative.dev/visibility: cluster-local
   name: hungryman-search-proc
-  namespace: my-apps
+  namespace: hungryman
 spec:
   params:
   - name: gitops_ssh_secret
