@@ -15,7 +15,7 @@ metadata:
     carto.run/workload-name: hungryman
     carto.run/workload-namespace: my-apps
   name: hungryman
-  namespace: my-apps
+  namespace: hungryman
 spec:
   params:
   - name: gitops_ssh_secret
