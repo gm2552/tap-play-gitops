@@ -8,7 +8,6 @@ metadata:
   labels:
     app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/workload-type: server
-    networking.knative.dev/visibility: cluster-local
     app.kubernetes.io/component: run
     carto.run/workload-name: acme-payment
 spec:
@@ -19,7 +18,6 @@ spec:
       apps.tanzu.vmware.com/workload-type: server
       carto.run/workload-name: acme-payment
       conventions.apps.tanzu.vmware.com/framework: spring-boot
-      networking.knative.dev/visibility: cluster-local
       services.conventions.apps.tanzu.vmware.com/postgres: workload
       tanzu.app.live.view: "true"
       tanzu.app.live.view.application.actuator.port: "8081"
@@ -44,7 +42,7 @@ spec:
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-payment","namespace":"workloads"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/acme-fitness-store"},"subPath":"apps/acme-catalog"}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server"},"name":"acme-payment","namespace":"workloads"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/acme-fitness-store"},"subPath":"apps/acme-catalog"}}}
         services.conventions.apps.tanzu.vmware.com/postgres: postgresql/42.3.3
       labels:
         app.kubernetes.io/component: run
@@ -52,7 +50,6 @@ spec:
         apps.tanzu.vmware.com/workload-type: server
         carto.run/workload-name: acme-payment
         conventions.apps.tanzu.vmware.com/framework: spring-boot
-        networking.knative.dev/visibility: cluster-local
         services.conventions.apps.tanzu.vmware.com/postgres: workload
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.port: "8081"
@@ -63,7 +60,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: reg.perfect300rock.com/tapdev/supply-chain/acme-payment-workloads@sha256:cd231b6c15e78e35fe1c4c5c7c0a574e84693ac5e9aaa5a73065f66af5b56d2b
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-payment-workloads@sha256:eba51fbe796eb00fbf6a0fdda53156bb50eae7942f46dc947c512371e8b9d15b
         livenessProbe:
           httpGet:
             path: /livez
@@ -90,7 +87,6 @@ metadata:
   labels:
     app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/workload-type: server
-    networking.knative.dev/visibility: cluster-local
     app.kubernetes.io/component: run
     carto.run/workload-name: acme-payment
 spec:
@@ -100,7 +96,6 @@ spec:
     apps.tanzu.vmware.com/workload-type: server
     carto.run/workload-name: acme-payment
     conventions.apps.tanzu.vmware.com/framework: spring-boot
-    networking.knative.dev/visibility: cluster-local
     services.conventions.apps.tanzu.vmware.com/postgres: workload
     tanzu.app.live.view: "true"
     tanzu.app.live.view.application.actuator.port: "8081"
