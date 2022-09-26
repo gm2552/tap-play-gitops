@@ -61,7 +61,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-notify-workloads@sha256:9a87aa7e935213eb885af698f134d91003a3a8127c9c0fdd6493c2be3eac009c
+        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-notify-workloads@sha256:44559949bc610f0356d3f7a71acbbe234b4d3b01505168a5bf9694290b0c9625
         livenessProbe:
           httpGet:
             path: /livez
