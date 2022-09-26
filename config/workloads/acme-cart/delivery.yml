@@ -8,7 +8,6 @@ metadata:
   labels:
     app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/workload-type: server
-    networking.knative.dev/visibility: cluster-local
     app.kubernetes.io/component: run
     carto.run/workload-name: acme-cart
 spec:
@@ -18,7 +17,6 @@ spec:
       app.kubernetes.io/part-of: acme-fitness-store
       apps.tanzu.vmware.com/workload-type: server
       carto.run/workload-name: acme-cart
-      networking.knative.dev/visibility: cluster-local
   template:
     metadata:
       annotations:
@@ -26,13 +24,12 @@ spec:
         conventions.carto.run/applied-conventions: appliveview-sample/app-live-view-appflavour-check
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-cart","namespace":"workloads"},"spec":{"env":[{"name":"CART_PORT","value":"8080"},{"name":"AUTH_URL","value":"http://authserver.tsmdemo.perfect300rock.com"},{"name":"AUTH_MODE","value":"1"},{"name":"REDIS_HOST","value":"cart-redis"},{"name":"REDIS_PORT","value":"6379"},{"name":"REDIS_PASSWORD","valueFrom":{"secretKeyRef":{"key":"password","name":"cart-redis-pass"}}}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/acme-fitness-store"},"subPath":"apps/acme-cart"}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server"},"name":"acme-cart","namespace":"workloads"},"spec":{"env":[{"name":"CART_PORT","value":"8080"},{"name":"AUTH_URL","value":"http://authserver.tsmdemo.perfect300rock.com"},{"name":"AUTH_MODE","value":"1"},{"name":"REDIS_HOST","value":"cart-redis"},{"name":"REDIS_PORT","value":"6379"},{"name":"REDIS_PASSWORD","valueFrom":{"secretKeyRef":{"key":"password","name":"cart-redis-pass"}}}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/acme-fitness-store"},"subPath":"apps/acme-cart"}}}
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: acme-fitness-store
         apps.tanzu.vmware.com/workload-type: server
         carto.run/workload-name: acme-cart
-        networking.knative.dev/visibility: cluster-local
     spec:
       containers:
       - env:
@@ -51,7 +48,7 @@ spec:
             secretKeyRef:
               key: password
               name: cart-redis-pass
-        image: reg.perfect300rock.com/tapdev/supply-chain/acme-cart-workloads@sha256:3ea1cef10af78a62861f2aa6cb0a9061fdbb540d8604d7e41a7548c25b0e7e51
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-cart-workloads@sha256:e04ff68c1d800c1ff5eda9565199c35d1f1b445b0459b9e26e91bc10b251deb5
         name: workload
         resources: {}
         securityContext:
@@ -65,7 +62,6 @@ metadata:
   labels:
     app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/workload-type: server
-    networking.knative.dev/visibility: cluster-local
     app.kubernetes.io/component: run
     carto.run/workload-name: acme-cart
 spec:
@@ -74,7 +70,6 @@ spec:
     app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/workload-type: server
     carto.run/workload-name: acme-cart
-    networking.knative.dev/visibility: cluster-local
   ports:
   - targetPort: 8080
     port: 80
