@@ -8,7 +8,6 @@ metadata:
   labels:
     app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/workload-type: server
-    networking.knative.dev/visibility: cluster-local
     app.kubernetes.io/component: run
     carto.run/workload-name: acme-shopping
 spec:
@@ -18,7 +17,6 @@ spec:
       app.kubernetes.io/part-of: acme-fitness-store
       apps.tanzu.vmware.com/workload-type: server
       carto.run/workload-name: acme-shopping
-      networking.knative.dev/visibility: cluster-local
   template:
     metadata:
       annotations:
@@ -26,19 +24,15 @@ spec:
         conventions.carto.run/applied-conventions: appliveview-sample/app-live-view-appflavour-check
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server","networking.knative.dev/visibility":"cluster-local"},"name":"acme-shopping","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_NODE_RUN_SCRIPTS","value":"build"},{"name":"BP_WEB_SERVER","value":"httpd"},{"name":"BP_WEB_SERVER_ROOT","value":"public"},{"name":"BP_WEB_SERVER_ENABLE_PUSH_STATE","value":"true"}]},"env":[{"name":"PORT","value":"8080"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/acme-fitness-store"},"subPath":"apps/acme-shopping"}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server"},"name":"acme-shopping","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_NODE_RUN_SCRIPTS","value":"build"},{"name":"BP_WEB_SERVER","value":"httpd"},{"name":"BP_WEB_SERVER_ROOT","value":"public"},{"name":"BP_WEB_SERVER_ENABLE_PUSH_STATE","value":"true"},{"name":"PORT","value":"8080"}]},"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/acme-fitness-store"},"subPath":"apps/acme-shopping"}}}
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: acme-fitness-store
         apps.tanzu.vmware.com/workload-type: server
         carto.run/workload-name: acme-shopping
-        networking.knative.dev/visibility: cluster-local
     spec:
       containers:
-      - env:
-        - name: PORT
-          value: "8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/acme-shopping-workloads@sha256:f325dd35580e41d60b6a4242b15fb80d7ee24927fad7a89655911770439e09ab
+      - image: reg.perfect300rock.com/tapdev/supply-chain/acme-shopping-workloads@sha256:4ff6186ee4a11500d48f492b964d043ef421f0accb1eef73bfa4494bf838bfee
         name: workload
         resources: {}
         securityContext:
@@ -52,7 +46,6 @@ metadata:
   labels:
     app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/workload-type: server
-    networking.knative.dev/visibility: cluster-local
     app.kubernetes.io/component: run
     carto.run/workload-name: acme-shopping
 spec:
@@ -61,7 +54,6 @@ spec:
     app.kubernetes.io/part-of: acme-fitness-store
     apps.tanzu.vmware.com/workload-type: server
     carto.run/workload-name: acme-shopping
-    networking.knative.dev/visibility: cluster-local
   ports:
   - targetPort: 8080
     port: 80
