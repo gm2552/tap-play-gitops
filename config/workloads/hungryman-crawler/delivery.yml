@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       annotations:
-        boot.spring.io/version: 2.7.3
+        boot.spring.io/version: 2.7.4
         conventions.carto.run/applied-conventions: |-
           spring-boot-convention/spring-boot
           spring-boot-convention/spring-boot-web
@@ -43,7 +43,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dserver.port="8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-crawler-workloads@sha256:8aaea1daff730e19e6e837112e6eb38f6792754036bd5bdc4630a3fd692f015d
+        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-crawler-workloads@sha256:d2008a3113fefe68045df90c9c3afc40aa9b164bc994cda7b82aba7e8626de49
         name: workload
         ports:
         - containerPort: 8080
