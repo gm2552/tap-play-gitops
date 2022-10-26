@@ -29,7 +29,7 @@ spec:
     metadata:
       annotations:
         boot.spring.io/actuator: http://:8081/actuator
-        boot.spring.io/version: 2.7.3
+        boot.spring.io/version: 2.7.4
         conventions.carto.run/applied-conventions: |-
           spring-boot-convention/spring-boot
           spring-boot-convention/spring-boot-web
@@ -61,7 +61,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-notify-workloads@sha256:44559949bc610f0356d3f7a71acbbe234b4d3b01505168a5bf9694290b0c9625
+        image: reg.perfect300rock.com/tapdev/supply-chain/hungryman-notify-workloads@sha256:ae8f857e32e94d295a65f919a55ae047531e123fa66f27e21031e239b768df9f
         livenessProbe:
           httpGet:
             path: /livez
