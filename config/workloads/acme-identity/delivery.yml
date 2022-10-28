@@ -57,7 +57,7 @@ spec:
           value: http://authserver.tsmdemo.perfect300rock.com/oauth2/jwks
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/acme-identity-workloads@sha256:7cc4d017dd4dc1ee3975d644e467e28db5f95b3c286534c0b3c9d9a596da5b8e
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-identity-workloads@sha256:ccb794a7b097cfc7b3267fe35d538f8021470ea5b03e8b479db74f7e100cd7ed
         livenessProbe:
           httpGet:
             path: /livez
