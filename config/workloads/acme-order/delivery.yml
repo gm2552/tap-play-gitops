@@ -49,7 +49,7 @@ spec:
           value: http://authserver.tsmdemo.perfect300rock.com
         - name: PAYMENT_SERVICE_SERVICE_HOST
           value: acme-payment
-        image: reg.perfect300rock.com/tapdev/supply-chain/acme-order-workloads@sha256:390b7becd97b550742a469f664cac995598167edf94df4c1a61bdaa41a56db34
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-order-workloads@sha256:f4f227470f109a078151219cafe085204cefe07a5f696a89613555aee77577e4
         name: workload
         resources: {}
         securityContext:
