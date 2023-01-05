@@ -21,7 +21,10 @@ spec:
     metadata:
       annotations:
         autoscaling.knative.dev/minScale: "1"
-        conventions.carto.run/applied-conventions: appliveview-sample/app-live-view-appflavour-check
+        conventions.carto.run/applied-conventions: |-
+          spring-boot-convention/auto-configure-actuators-check
+          spring-boot-convention/app-live-view-appflavour-check
+          appliveview-sample/app-live-view-appflavour-check
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
           {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"acme-fitness-store","apps.tanzu.vmware.com/workload-type":"server"},"name":"acme-shopping","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_NODE_RUN_SCRIPTS","value":"build"},{"name":"BP_WEB_SERVER","value":"httpd"},{"name":"BP_WEB_SERVER_ROOT","value":"public"},{"name":"BP_WEB_SERVER_ENABLE_PUSH_STATE","value":"true"}]},"env":[{"name":"PORT","value":"8080"}],"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"ports","value":[{"containerPort":8080,"name":"http","port":80}]}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/gm2552/acme-fitness-store"},"subPath":"apps/acme-shopping"}}}
@@ -35,7 +38,7 @@ spec:
       - env:
         - name: PORT
           value: "8080"
-        image: reg.perfect300rock.com/tapdev/supply-chain/acme-shopping-workloads@sha256:4ff6186ee4a11500d48f492b964d043ef421f0accb1eef73bfa4494bf838bfee
+        image: reg.perfect300rock.com/tapdev/supply-chain/acme-shopping-workloads@sha256:312a518ade37d0178d7063405eca059a0609b30b1af396f6fff33164d0452e3a
         name: workload
         resources: {}
         securityContext:
