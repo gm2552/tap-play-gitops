@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atm-locator-angular
+  annotations:
+    kapp.k14s.io/update-strategy: fallback-on-replace
+    ootb.apps.tanzu.vmware.com/servicebinding-workload: "true"
+    kapp.k14s.io/change-rule: upsert after upserting servicebinding.io/ServiceBindings
+  labels:
+    app.kubernetes.io/part-of: atm-locator
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: server
+    app.kubernetes.io/component: run
+    carto.run/workload-name: atm-locator-angular
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: run
+      app.kubernetes.io/part-of: atm-locator
+      apps.tanzu.vmware.com/has-tests: "true"
+      apps.tanzu.vmware.com/workload-type: server
+      carto.run/workload-name: atm-locator-angular
+  template:
+    metadata:
+      annotations:
+        apps.tanzu.vmware.com/correlationid: reg.perfect300rock.com/tapdev/lsp-source:workloads-atm-locator-angular?sub_path=/
+        conventions.carto.run/applied-conventions: |-
+          spring-boot-convention/auto-configure-actuators-check
+          spring-boot-convention/is-native-app-check
+          spring-boot-convention/is-prometheus-enabled-check
+          spring-boot-convention/app-live-view-appflavour-check
+        developer.conventions/target-containers: workload
+        local-source-proxy.apps.tanzu.vmware.com: reg.perfect300rock.com/tapdev/lsp-source:workloads-atm-locator-angular@sha256:09bbaf3d3f0326153f310fd677e3b7d28378fb59a8cfdbf5bf3e6d31304f40e1
+      labels:
+        app.kubernetes.io/component: run
+        app.kubernetes.io/part-of: atm-locator
+        apps.tanzu.vmware.com/has-tests: "true"
+        apps.tanzu.vmware.com/workload-type: server
+        carto.run/workload-name: atm-locator-angular
+    spec:
+      containers:
+      - image: reg.perfect300rock.com/tapdev/supply-chain/atm-locator-angular-workloads@sha256:e76819273f84c80304e2f577676793f085092b7573f59508a3ba155dce499537
+        name: workload
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          runAsUser: 1000
+          seccompProfile:
+            type: RuntimeDefault
+      serviceAccountName: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atm-locator-angular
+  labels:
+    app.kubernetes.io/part-of: atm-locator
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: server
+    app.kubernetes.io/component: run
+    carto.run/workload-name: atm-locator-angular
+spec:
+  selector:
+    app.kubernetes.io/component: run
+    app.kubernetes.io/part-of: atm-locator
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: server
+    carto.run/workload-name: atm-locator-angular
+  ports:
+  - targetPort: 8080
+    port: 8080
+    name: http
+
