@@ -1,0 +1,38 @@
+apiVersion: kapp.k14s.io/v1alpha1
+kind: Config
+waitRules:
+- conditionMatchers:
+  - type: ServiceAvailable
+    status: "False"
+    failure: true
+  - type: ServiceAvailable
+    status: "True"
+    success: true
+  resourceMatchers:
+  - apiVersionKindMatcher:
+      apiVersion: servicebinding.io/v1alpha3
+      kind: ServiceBinding
+---
+apiVersion: servicebinding.io/v1alpha3
+kind: ServiceBinding
+metadata:
+  name: branch-registry
+  annotations:
+    local-source-proxy.apps.tanzu.vmware.com: reg.perfect300rock.com/tapdev/lsp-source:workloads-branch@sha256:1463cddf4be8af5133a4f264510a21d2370c5f33a23379e7c5c29ec3a98c5412
+    kapp.k14s.io/change-group: servicebinding.io/ServiceBindings
+  labels:
+    app.kubernetes.io/part-of: branch
+    apps.tanzu.vmware.com/workload-type: server
+    app.kubernetes.io/component: run
+    carto.run/workload-name: branch
+spec:
+  name: registry
+  service:
+    apiVersion: service-registry.spring.apps.tanzu.vmware.com/v1alpha1
+    kind: EurekaServer
+    name: registry-atm-locator
+  workload:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: branch
+
