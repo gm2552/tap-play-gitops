@@ -1,0 +1,39 @@
+apiVersion: kapp.k14s.io/v1alpha1
+kind: Config
+waitRules:
+- conditionMatchers:
+  - type: ServiceAvailable
+    status: "False"
+    failure: true
+  - type: ServiceAvailable
+    status: "True"
+    success: true
+  resourceMatchers:
+  - apiVersionKindMatcher:
+      apiVersion: servicebinding.io/v1alpha3
+      kind: ServiceBinding
+---
+apiVersion: servicebinding.io/v1alpha3
+kind: ServiceBinding
+metadata:
+  name: atm-registry
+  annotations:
+    local-source-proxy.apps.tanzu.vmware.com: reg.perfect300rock.com/tapdev/lsp-source:workloads-atm@sha256:aac165b58f8ab0e015dedc971803f4a1f36ff3974b569d5f20b3cacec231a9de
+    kapp.k14s.io/change-group: servicebinding.io/ServiceBindings
+  labels:
+    app.kubernetes.io/part-of: atm
+    apps.tanzu.vmware.com/auto-configure-actuators: "true"
+    apps.tanzu.vmware.com/workload-type: server
+    app.kubernetes.io/component: run
+    carto.run/workload-name: atm
+spec:
+  name: registry
+  service:
+    apiVersion: service-registry.spring.apps.tanzu.vmware.com/v1alpha1
+    kind: EurekaServer
+    name: registry-atm-locator
+  workload:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: atm
+
