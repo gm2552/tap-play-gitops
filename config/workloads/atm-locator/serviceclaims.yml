@@ -1,0 +1,67 @@
+apiVersion: kapp.k14s.io/v1alpha1
+kind: Config
+waitRules:
+- conditionMatchers:
+  - type: ServiceAvailable
+    status: "False"
+    failure: true
+  - type: ServiceAvailable
+    status: "True"
+    success: true
+  resourceMatchers:
+  - apiVersionKindMatcher:
+      apiVersion: servicebinding.io/v1alpha3
+      kind: ServiceBinding
+---
+apiVersion: servicebinding.io/v1alpha3
+kind: ServiceBinding
+metadata:
+  name: atm-locator-registry
+  annotations:
+    local-source-proxy.apps.tanzu.vmware.com: reg.perfect300rock.com/tapdev/lsp-source:workloads-atm-locator@sha256:5659f762d3ff06e472c3e365d1cc19eea241a3ea5726187b13e32552daaa7bf7
+    autoscaling.knative.dev/minScale: "1"
+    kapp.k14s.io/change-group: servicebinding.io/ServiceBindings
+  labels:
+    apis.apps.tanzu.vmware.com/register-api: "true"
+    app.kubernetes.io/part-of: atm-locator
+    apps.tanzu.vmware.com/auto-configure-actuators: "true"
+    apps.tanzu.vmware.com/workload-type: server
+    app.kubernetes.io/component: run
+    carto.run/workload-name: atm-locator
+spec:
+  name: registry
+  service:
+    apiVersion: service-registry.spring.apps.tanzu.vmware.com/v1alpha1
+    kind: EurekaServer
+    name: registry-atm-locator
+  workload:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: atm-locator
+---
+apiVersion: servicebinding.io/v1alpha3
+kind: ServiceBinding
+metadata:
+  name: atm-locator-config
+  annotations:
+    local-source-proxy.apps.tanzu.vmware.com: reg.perfect300rock.com/tapdev/lsp-source:workloads-atm-locator@sha256:5659f762d3ff06e472c3e365d1cc19eea241a3ea5726187b13e32552daaa7bf7
+    autoscaling.knative.dev/minScale: "1"
+    kapp.k14s.io/change-group: servicebinding.io/ServiceBindings
+  labels:
+    apis.apps.tanzu.vmware.com/register-api: "true"
+    app.kubernetes.io/part-of: atm-locator
+    apps.tanzu.vmware.com/auto-configure-actuators: "true"
+    apps.tanzu.vmware.com/workload-type: server
+    app.kubernetes.io/component: run
+    carto.run/workload-name: atm-locator
+spec:
+  name: config
+  service:
+    apiVersion: config-server.spring.tanzu.vmware.com/v1alpha1
+    kind: ConfigServer
+    name: config-atm-locator
+  workload:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: atm-locator
+
