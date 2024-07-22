@@ -30,7 +30,7 @@ spec:
           spring-boot-convention/is-prometheus-enabled-check
           spring-boot-convention/app-live-view-appflavour-check
         developer.conventions/target-containers: workload
-        local-source-proxy.apps.tanzu.vmware.com: reg.perfect300rock.com/tapdev/lsp-source:workloads-atm-locator-angular@sha256:09bbaf3d3f0326153f310fd677e3b7d28378fb59a8cfdbf5bf3e6d31304f40e1
+        local-source-proxy.apps.tanzu.vmware.com: reg.perfect300rock.com/tapdev/lsp-source:workloads-atm-locator-angular@sha256:976069dae5add58757a7f8cf18d8c59493ab4000d1d86e41411a862fc5db6c58
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: atm-locator
@@ -39,7 +39,7 @@ spec:
         carto.run/workload-name: atm-locator-angular
     spec:
       containers:
-      - image: reg.perfect300rock.com/tapdev/supply-chain/atm-locator-angular-workloads@sha256:e76819273f84c80304e2f577676793f085092b7573f59508a3ba155dce499537
+      - image: reg.perfect300rock.com/tapdev/supply-chain/atm-locator-angular-workloads@sha256:87f7a189afad09ae15b5fc9a5102023300f942e89a29fb4d8bfdfd802a6276cf
         name: workload
         ports:
         - containerPort: 8080
