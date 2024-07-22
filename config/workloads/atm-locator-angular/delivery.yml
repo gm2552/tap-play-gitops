@@ -39,7 +39,7 @@ spec:
         carto.run/workload-name: atm-locator-angular
     spec:
       containers:
-      - image: reg.perfect300rock.com/tapdev/supply-chain/atm-locator-angular-workloads@sha256:87f7a189afad09ae15b5fc9a5102023300f942e89a29fb4d8bfdfd802a6276cf
+      - image: reg.perfect300rock.com/tapdev/supply-chain/atm-locator-angular-workloads@sha256:ec169ec9790392fb99f5596d13511dabee38ba57553c88c19323bb9a110819f8
         name: workload
         ports:
         - containerPort: 8080
